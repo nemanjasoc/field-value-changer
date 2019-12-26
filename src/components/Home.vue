@@ -2,18 +2,20 @@
     <div class="container">
         <div class="fields-wrapper">
             <div class="field-container" v-for="field in fields" :key="field.letter">
-                <div class="field">
+                <div class="field" :class="{ inactive: !field.enable }">
                     <span class="field-letter">{{ field.letter }}</span>
                     <div class="value-arrow-container">
-                        <span class="field-value">value: {{ field.value }}</span>
+                        <span class="field-value">value: {{ field.currentValue }}</span>
                         <span class="arrow-up" v-if="field.condition === '+'"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
                         <span class="arrow-down" v-if="field.condition === '-'"><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
                     </div>
-                </div>      
+                </div>
+    
                 <button class="field-button" @click="switchEnableDisable(field)">Disable / Enable change</button>
             </div>
         </div>
-        <router-link tag="button" class="next-page" :to="{ name: 'Statistics'}">Go to Statistics</router-link>
+
+        <button class="next-page-button" @click="goToStatistics()">Go to Statistics</button>
     </div>
 </template>
 
@@ -26,12 +28,22 @@ export default {
             'fields'
         ])
     },
+    data() {
+        return {
+            red: false,
+            interval: null 
+        }
+    },
     mounted() {
         this.changeValue();
     },
     methods: {
-        changeValue() {
-            setInterval(() => {
+        changeValue() {  
+            this.interval = setInterval(() => {
+                if (this.$route.path === '/statistics') {
+                    clearInterval(this.interval);
+                }
+
                 var possibleValues = [-2, -1, 1, 2];
                 var newFieldsValues = [];
                 
@@ -40,21 +52,30 @@ export default {
                     var randomNum = possibleValues[Math.floor(Math.random() * possibleValues.length)];
 
                     if (currentObject.enable) {
-                        currentObject.value += randomNum;
+                        var fieldCurrentValue = currentObject.currentValue += randomNum;
+                        currentObject.values.push(fieldCurrentValue);
                     
+                        var currentSecond = (currentObject.values.length - 1) * 2;
+                        currentObject.seconds.push(currentSecond);
+                        
                         if (randomNum > 0) {
                             currentObject.condition = '+';
-                        } else if (randomNum < 0) {
+                        } 
+                        else if (randomNum < 0) {
                             currentObject.condition = '-';
                         }
                     }
                     newFieldsValues.push(currentObject);
                 }
-            },2000);
-            this.$store.commit('setCurrentField', newFieldsValues);
+                this.$store.commit('setCurrentField', newFieldsValues);
+            },2000); 
         },
         switchEnableDisable(field) {
             field.enable = !field.enable;
+        },
+        goToStatistics() {
+            this.$router.push('/statistics');
+            clearInterval(this.interval);
         }
     }
 }
@@ -74,49 +95,105 @@ export default {
 }
 
 .field-container {
+    margin-right: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 15px;
-
-    .field {
-        width: 150px;
-        height: 150px;
-        margin: 15px;
-        border: 1px solid black;
+    width: calc(20% - 20px);
+    padding-top: 3%;
+    padding-bottom: 3%;
+    position: relative;
+   
+    .field {     
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
+        position: relative;
+        width: 100%;
+        padding-top: calc(56.25% - 20px);
+        margin-bottom: 15px;
+        border: 2px solid #9bfe9e;
+        box-shadow: 0 1px 7px 0px #9bfe9e;
+        -webkit-box-shadow: 0 1px 7px 0px #9bfe9e;
+        -moz-box-shadow: 0 1px 7px 0px #9bfe9e;
+        -o-box-shadow: 0 1px 7px 0px #9bfe9e;
+
+        .field-letter {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
         .value-arrow-container {
             display: flex;
             justify-content: space-around;
 
             .field-value {
-                margin: 20px 15px 0 0;
+                margin: 0 20px 20px 0;
             }
 
             .arrow-up,
             .arrow-down {
-                margin-top: 20px;
+                margin-bottom: 20px;
             }
         }
     }
 
+    .field.inactive { 
+        border: 2px solid red;
+        box-shadow: 0 1px 7px 0px red;
+        -webkit-box-shadow: 0 1px 7px 0px red;
+        -moz-box-shadow: 0 1px 7px 0px red;
+        -o-box-shadow: 0 1px 7px 0px red;
+    }
+
     .field-button {
-        width: 150px;
-        height: 35px;
+        width: 100%;
+        height: 32px;
         cursor: pointer;
         border-radius: 4px;
+        font-size: 12px;
+        text-align: center;
+        outline: none;
     }
 }
 
-.next-page {
+.next-page-button {
     width: 110px;
     height: 25px;
     margin: 15px;
     cursor: pointer;
     border-radius: 4px;
+}
+
+/*media query*/
+
+@media only screen and (max-width: 992px) {
+    .field-container {
+        width: calc(25% - 20px);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .field-container {
+        width: calc(33.33% - 20px);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .field-container {
+        width: calc(50% - 20px);
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .field-container {
+        width: calc(100% - 20px);
+    }
 }
 </style>

@@ -2,63 +2,83 @@ const state = {
     fields: [
         {
             letter: 'A',
-            value: 3,
             condition: '',
-            enable: true
+            enable: true,
+            currentValue: 3,
+            values: [],
+            seconds: []
         },
         {
             letter: 'B',
-            value: 3,
             condition: '',
-            enable: true
+            enable: true,
+            currentValue: 3,
+            values: [],
+            seconds: []
         },
         {
             letter: 'C',
-            value: 3,
             condition: '',
-            enable: true
+            enable: true,
+            currentValue: 3,
+            values: [],
+            seconds: []
         },
         {
             letter: 'D',
-            value: 3,
             condition: '',
-            enable: true
+            enable: true,
+            currentValue: 3,
+            values: [],
+            seconds: []
         },
         {
             letter: 'E',
-            value: 3,
             condition: '',
-            enable: true
+            enable: true,
+            currentValue: 3,
+            values: [],
+            seconds: []
         },
         {
             letter: 'F',
-            value: 3,
             condition: '',
-            enable: true
+            enable: true,
+            currentValue: 3,
+            values: [],
+            seconds: []
         },
         {
             letter: 'G',
-            value: 3,
             condition: '',
-            enable: true
+            enable: true,
+            currentValue: 3,
+            values: [],
+            seconds: []
         },
         {
             letter: 'H',
-            value: 3,
             condition: '',
-            enable: true
+            enable: true,
+            currentValue: 3,
+            values: [],
+            seconds: []
         },
         {
             letter: 'I',
-            value: 3,
             condition: '',
-            enable: true
+            enable: true,
+            currentValue: 3,
+            values: [],
+            seconds: []
         },
         {
             letter: 'J',
-            value: 3,
             condition: '',
-            enable: true
+            enable: true,
+            currentValue: 3,
+            values: [],
+            seconds: []
         }
     ]
 }
