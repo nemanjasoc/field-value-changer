@@ -7,14 +7,14 @@
 
                     <div class="value-arrow-container">
                         <span class="field-value">value: {{ field.currentValue }}</span>
-                        <span class="arrow-up" v-if="field.condition === '+'"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
-                        <span class="arrow-down" v-if="field.condition === '-'"><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
+                        <span class="field-arrow" v-if="field.condition === '+'"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
+                        <span class="field-arrow" v-if="field.condition === '-'"><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
                     </div>
                 </div>
     
-                <div class="disable-enable-button">
-                    <button class="disable-button" @click="switchEnableDisable(field)" v-if="field.enable">Disable change</button>
-                    <button class="enable-button" @click="switchEnableDisable(field)" v-if="!field.enable">Enable change</button>
+                <div class="disable-enable">
+                    <button class="disable-enable-button" @click="switchEnableDisable(field)" v-if="field.enable">Disable change</button>
+                    <button class="disable-enable-button" @click="switchEnableDisable(field)" v-if="!field.enable">Enable change</button>
                 </div>
             </div>
         </div>
@@ -100,78 +100,72 @@ export default {
     padding-top: 3%;
     padding-bottom: 3%;
     position: relative;
-   
-    .field {     
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        width: 100%;
-        padding-top: calc(56.25% - 20px);
-        margin-bottom: 15px;
-        border: 2px solid #67b26b;
-        @include box-shadow(0 1px 7px 0px #67b26b);
+}
 
-        .field-letter {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 700;
-            font-size: 18px;
-        }
+.field {     
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    padding-top: calc(56.25% - 20px);
+    margin-bottom: 15px;
+    border: 2px solid #67b26b;
+    @include box-shadow(0 1px 7px 0px #67b26b);
 
-        .value-arrow-container {
-            display: flex;
-            justify-content: space-around;
-
-            .field-value {
-                margin: 0 20px 20px 0;
-            }
-
-            .arrow-up,
-            .arrow-down {
-                margin-bottom: 20px;
-            }
-
-        }
-
-    }
-
-    .field.inactive { 
+    &.inactive {
         border: 2px solid $link-color;
         @include box-shadow(0 1px 7px 0px $link-color);
     }
+}
 
-    .disable-enable-button {
-        width: 100%;
-        height: 32px;
+.field-letter {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 18px;
+}
 
-        .disable-button,
-        .enable-button {
-            width: 100%;
-            line-height: 32px;
-            color: #ffffff;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 14px;
-            text-align: center;
-            outline: none;
-            border: none;
-            background-color: $main-color;
-            @include transition(all 0.4s ease 0s);
+.value-arrow-container {
+    display: flex;
+    justify-content: space-around;
+}
 
-            &:hover {
-                @include box-shadow(0px 5px 40px -10px rgba(0,0,0,0.57));
-            }
-        }
-        
+.field-value {
+    margin: 0 20px 20px 0;
+}
+
+.field-arrow {
+    margin-bottom: 20px;
+}
+
+.disable-enable {
+    width: 100%;
+    height: 32px;
+}
+
+.disable-enable-button {
+    width: 100%;
+    line-height: 32px;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+    outline: none;
+    border: none;
+    background-color: $main-color;
+    @include transition(all 0.4s ease 0s);
+
+    &:hover {
+        @include box-shadow(0px 5px 40px -10px rgba(0,0,0,0.57));
     }
-
 }
 
 @media only screen and (max-width: 992px) {

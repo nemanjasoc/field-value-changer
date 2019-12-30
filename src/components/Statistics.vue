@@ -131,14 +131,13 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
 
-    .chart-content {
-        position: relative;
-        width: 40%;
-        height: 40%;
-        margin: 0 40px 30px 0;
-    }
-
+.chart-content {
+    position: relative;
+    width: 40%;
+    height: 40%;
+    margin: 0 40px 30px 0;
 }
 
 .back-to-top {
@@ -160,13 +159,9 @@ export default {
 }
 
 @media only screen and (max-width: 992px) {
-    .statistics-container {
-
-        .chart-content {
-            width: 80%;
-            height: 80%;
-        }
-
+    .chart-content {
+        width: 80%;
+        height: 80%;
     }
 }
 
