@@ -4,6 +4,7 @@
             <div class="field-container" v-for="field in fields" :key="field.letter">
                 <div class="field" :class="{ inactive: !field.enable }">
                     <span class="field-letter">{{ field.letter }}</span>
+
                     <div class="value-arrow-container">
                         <span class="field-value">value: {{ field.currentValue }}</span>
                         <span class="arrow-up" v-if="field.condition === '+'"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
@@ -11,11 +12,12 @@
                     </div>
                 </div>
     
-                <button class="field-button" @click="switchEnableDisable(field)">Disable / Enable change</button>
+                <div class="disable-enable-button">
+                    <button class="disable-button" @click="switchEnableDisable(field)" v-if="field.enable">Disable change</button>
+                    <button class="enable-button" @click="switchEnableDisable(field)" v-if="!field.enable">Enable change</button>
+                </div>
             </div>
         </div>
-
-        <button class="next-page-button" @click="goToStatistics()">Go to Statistics</button>
     </div>
 </template>
 
@@ -40,10 +42,6 @@ export default {
     methods: {
         changeValue() {  
             this.interval = setInterval(() => {
-                if (this.$route.path === '/statistics') {
-                    clearInterval(this.interval);
-                }
-
                 var possibleValues = [-2, -1, 1, 2];
                 var newFieldsValues = [];
                 
@@ -72,26 +70,25 @@ export default {
         },
         switchEnableDisable(field) {
             field.enable = !field.enable;
-        },
-        goToStatistics() {
-            this.$router.push('/statistics');
-            clearInterval(this.interval);
         }
+    },
+    beforeDestroy() {
+        clearInterval(this.interval)
     }
 }
 </script>
 
 <style lang="scss">
+@import 'src/scss/variables';
+@import 'src/scss/mixins';
+
 .fields-wrapper {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     width: 80%;
     height: 80%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 0 auto;
 }
 
 .field-container {
@@ -112,11 +109,8 @@ export default {
         width: 100%;
         padding-top: calc(56.25% - 20px);
         margin-bottom: 15px;
-        border: 2px solid #9bfe9e;
-        box-shadow: 0 1px 7px 0px #9bfe9e;
-        -webkit-box-shadow: 0 1px 7px 0px #9bfe9e;
-        -moz-box-shadow: 0 1px 7px 0px #9bfe9e;
-        -o-box-shadow: 0 1px 7px 0px #9bfe9e;
+        border: 2px solid #67b26b;
+        @include box-shadow(0 1px 7px 0px #67b26b);
 
         .field-letter {
             position: absolute;
@@ -127,6 +121,8 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
+            font-weight: 700;
+            font-size: 18px;
         }
 
         .value-arrow-container {
@@ -141,37 +137,42 @@ export default {
             .arrow-down {
                 margin-bottom: 20px;
             }
+
         }
+
     }
 
     .field.inactive { 
-        border: 2px solid red;
-        box-shadow: 0 1px 7px 0px red;
-        -webkit-box-shadow: 0 1px 7px 0px red;
-        -moz-box-shadow: 0 1px 7px 0px red;
-        -o-box-shadow: 0 1px 7px 0px red;
+        border: 2px solid $link-color;
+        @include box-shadow(0 1px 7px 0px $link-color);
     }
 
-    .field-button {
+    .disable-enable-button {
         width: 100%;
         height: 32px;
-        cursor: pointer;
-        border-radius: 4px;
-        font-size: 12px;
-        text-align: center;
-        outline: none;
+
+        .disable-button,
+        .enable-button {
+            width: 100%;
+            line-height: 32px;
+            color: #ffffff;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            outline: none;
+            border: none;
+            background-color: $main-color;
+            @include transition(all 0.4s ease 0s);
+
+            &:hover {
+                @include box-shadow(0px 5px 40px -10px rgba(0,0,0,0.57));
+            }
+        }
+        
     }
-}
 
-.next-page-button {
-    width: 110px;
-    height: 25px;
-    margin: 15px;
-    cursor: pointer;
-    border-radius: 4px;
 }
-
-/*media query*/
 
 @media only screen and (max-width: 992px) {
     .field-container {
@@ -192,6 +193,10 @@ export default {
 }
 
 @media only screen and (max-width: 420px) {
+    .fields-wrapper {
+        width: 65%;
+    }
+
     .field-container {
         width: calc(100% - 20px);
     }

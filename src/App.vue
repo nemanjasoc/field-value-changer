@@ -1,12 +1,17 @@
 <template>
   <div id="app">
+    <app-header></app-header>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default {
+import Header from './components/Header.vue';
 
+export default {
+  components: {
+    appHeader: Header
+  }
 }
 </script>
 
@@ -21,11 +26,9 @@ body {
 
 ul {
   list-style-type: none;
-  padding: 0;
 }
 
 li {
   display: inline-block;
-  margin: 0 10px;
 }
 </style>
