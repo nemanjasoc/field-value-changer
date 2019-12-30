@@ -5,80 +5,80 @@ const state = {
             condition: '',
             enable: true,
             currentValue: 3,
-            values: [],
-            seconds: []
+            values: [3],
+            seconds: [0]
         },
         {
             letter: 'B',
             condition: '',
             enable: true,
             currentValue: 3,
-            values: [],
-            seconds: []
+            values: [3],
+            seconds: [0]
         },
         {
             letter: 'C',
             condition: '',
             enable: true,
             currentValue: 3,
-            values: [],
-            seconds: []
+            values: [3],
+            seconds: [0]
         },
         {
             letter: 'D',
             condition: '',
             enable: true,
             currentValue: 3,
-            values: [],
-            seconds: []
+            values: [3],
+            seconds: [0]
         },
         {
             letter: 'E',
             condition: '',
             enable: true,
             currentValue: 3,
-            values: [],
-            seconds: []
+            values: [3],
+            seconds: [0]
         },
         {
             letter: 'F',
             condition: '',
             enable: true,
             currentValue: 3,
-            values: [],
-            seconds: []
+            values: [3],
+            seconds: [0]
         },
         {
             letter: 'G',
             condition: '',
             enable: true,
             currentValue: 3,
-            values: [],
-            seconds: []
+            values: [3],
+            seconds: [0]
         },
         {
             letter: 'H',
             condition: '',
             enable: true,
             currentValue: 3,
-            values: [],
-            seconds: []
+            values: [3],
+            seconds: [0]
         },
         {
             letter: 'I',
             condition: '',
             enable: true,
             currentValue: 3,
-            values: [],
-            seconds: []
+            values: [3],
+            seconds: [0]
         },
         {
             letter: 'J',
             condition: '',
             enable: true,
             currentValue: 3,
-            values: [],
-            seconds: []
+            values: [3],
+            seconds: [0]
         }
     ]
 }
